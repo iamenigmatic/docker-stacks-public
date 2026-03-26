@@ -1,0 +1,44 @@
+# This uses an existing MariaDB install.  You will need to create the leantime database within Maria before running this.
+
+services:
+  web:
+    image: leantime/leantime:latest
+    container_name: Leantime
+    hostname: leantime
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 8080 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
+    volumes:
+      - /volume1/docker/leantimedb/custom.ini:/usr/local/etc/php/conf.d/custom.ini:rw
+      - /volume1/docker/leantimedb/public:/var/www/html/public/userfiles:rw
+      - /volume1/docker/leantimedb/private:/var/www/html/userfiles:rw
+    ports:
+      - 4805:8080
+    environment:
+      LEAN_DB_HOST: 192.168.0.4:3306  # Your DB IP
+      LEAN_DB_DATABASE: leantime
+      LEAN_DB_USER: ${LEAN_DB_USER}
+      LEAN_DB_PASSWORD: ${LEAN_DB_PASSWORD}
+      LEAN_EMAIL_RETURN: ${LEAN_EMAIL_RETURN}
+      LEAN_EMAIL_USE_SMTP: true
+      LEAN_EMAIL_SMTP_HOSTS: ${LEAN_EMAIL_SMTP_HOSTS}
+      LEAN_EMAIL_SMTP_USERNAME: ${LEAN_EMAIL_SMTP_USERNAME}
+      LEAN_EMAIL_SMTP_PASSWORD: ${LEAN_EMAIL_SMTP_PASSWORD}
+      LEAN_EMAIL_SMTP_AUTO_TLS: true
+      LEAN_EMAIL_SMTP_SECURE: TLS
+      LEAN_EMAIL_SMTP_PORT: 587
+      LEAN_APP_URL: ${LEAN_APP_URL}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      PUID: 1026  # Use your own
+      PGID: 100  # Use your own
+    networks:
+      - group1
+
+networks:
+  group1:
+    external: true  # Use an existing network
