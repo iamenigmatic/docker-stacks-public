@@ -1,0 +1,21 @@
+services:
+  uptimekuma:
+    image: louislam/uptime-kuma:latest
+    container_name: Uptime-Kuma
+    hostname: uptimekuma
+    mem_limit: 4g
+    cpu_shares: 1024
+    ports:
+      - 3446:3001
+    volumes:
+      - /volume1/docker/uptimekuma:/app/data:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      TZ: America/Los_Angeles  # Use your own timezone
+    restart: on-failure:5
+    networks:
+      - group1
+
+networks:
+  group1:
+    external: true  # Use an existing network
