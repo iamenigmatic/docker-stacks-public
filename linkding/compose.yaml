@@ -1,0 +1,18 @@
+services:
+  linkding:
+    container_name: Linkding
+    image: sissbruecker/linkding:latest
+    ports:
+      - 9496:9090
+    volumes:
+      - /volume1/docker/linkding:/etc/linkding/data:rw
+    environment:
+       LD_SUPERUSER_NAME: ${LD_SUPERUSER_NAME}
+       LD_SUPERUSER_PASSWORD: ${LD_SUPERUSER_PASSWORD}
+    restart: on-failure:5
+    networks:
+      - group1
+
+networks:
+  group1:
+    external: true  # Use an existing network
