@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  apprise:
+    container_name: apprise
+    image: caronc/apprise:latest
+    restart: on-failure:5
+    ports:
+      - 8134:8000
+    volumes:
+      - /volume1/docker/apprise/attach:/attach
+      - /volume1/docker/apprise/config:/config
+      - /volume1/docker/apprise/plugin:/plugin
+    environment:
+      - APPRISE_CONFIG_DIR=/config
+      - APPRISE_ATTACH_DIR=/attach
+      - APPRISE_PLUGIN_PATHS=/plugin
+    networks:
+      - group1
+
+networks:
+  group1:
+    external: true  # Use an existing network
