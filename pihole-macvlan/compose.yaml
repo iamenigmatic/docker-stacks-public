@@ -1,0 +1,47 @@
+#  https://www.wundertech.net/how-to-setup-pi-hole-on-a-synology-nas-two-methods/
+
+version: "3"
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp" 
+      - "80:80/tcp"
+    networks:
+     ph_network:
+       ipv4_address: 192.168.0.5  # Your wanted IP
+       priority: 1000
+     ph_bridge:
+       ipv4_address: 192.168.10.2
+       priority: 900
+    environment:
+      TZ: 'America/Los_Angeles'  # Use your own timezone
+      FTLCONF_webserver_api_password: ${FTLCONF_webserver_api_password}
+      DNSMASQ_LISTENING: local
+    volumes:
+      - '/volume1/docker/pihole/pihole:/etc/pihole'
+      - '/volume1/docker/pihole/dnsmasq.d:/etc/dnsmasq.d'
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+networks:
+    ph_bridge:
+      driver: bridge
+      ipam:
+        config:
+          - subnet: 192.168.10.0/24
+            gateway: 192.168.10.1
+            ip_range: 192.168.10.2/32
+    ph_network:
+      name: ph_network
+      driver: macvlan
+      driver_opts:
+        parent: eth0
+      ipam:
+        config:
+          - subnet: 192.168.0.0/24  # Your subnet
+            ip_range: 192.168.0.5/32  # Your wanted IP
+            gateway: 192.168.0.1  # Your gateway
