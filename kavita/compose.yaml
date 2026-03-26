@@ -1,0 +1,21 @@
+services:
+  kavita:
+    image: jvmilazz0/kavita:latest
+    container_name: Kavita
+    hostname: kavita
+    mem_limit: 4g
+    cpu_shares: 768
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 5472:5000
+    volumes:
+      - /volume1/docker/kavita/config:/kavita/config:rw
+      - /volume1/docker/kavita/data:/manga:rw
+    restart: on-failure:5
+    networks:
+      - group1
+
+networks:
+  group1:
+    external: true  # Use an existing network
