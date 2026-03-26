@@ -1,0 +1,20 @@
+services:
+  doku:
+    container_name: Doku
+    image: amerkurev/doku
+    mem_limit: 4g
+    cpu_shares: 768
+    security_opt:
+      - no-new-privileges:true
+    restart: on-failure:5
+    ports:
+      - 9090:9090
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro \
+      - /:/hostroot:ro \
+    networks:
+      - group1
+
+networks:
+  group1:
+    external: true  # Use an existing network
