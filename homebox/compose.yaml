@@ -1,0 +1,26 @@
+services:
+  homebox:
+    container_name: Homebox
+    image: ghcr.io/sysadminsmedia/homebox:latest
+    mem_limit: 3g
+    cpu_shares: 1024
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 3101:7745
+    volumes:
+      - /volume1/docker/homebox:/data:rw
+    environment:
+       HBOX_LOG_LEVEL: info
+       HBOX_LOG_FORMAT: json  # This defaults as text and throws errors
+       HBOX_WEB_MAX_UPLOAD_SIZE: 5000
+       TZ: America/Los_Angeles  # Use your timezone
+       HBOX_OPTIONS_TRUST_PROXY: true
+       HBOX_OPTIONS_ALLOW_REGISTRATION: false  # Need true for first install then change to false
+    restart: on-failure:5
+    networks:
+      - group1
+
+networks:
+  group1:
+    external: true  # Use an existing network
