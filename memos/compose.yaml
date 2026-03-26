@@ -1,0 +1,19 @@
+services:
+  memos:
+    container_name: Memos
+    image: ghcr.io/usememos/memos:stable
+    mem_limit: 4g
+    cpu_shares: 768
+    security_opt:
+      - no-new-privileges:true
+    restart: on-failure:5
+    ports:
+      - 5236:5230
+    volumes:
+      - /volume1/docker/memos:/var/opt/memos:rw
+    networks:
+      - group1
+
+networks:
+  group1:
+    external: true  # Use an existing network
