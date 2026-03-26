@@ -1,0 +1,23 @@
+services:
+  komga:
+    container_name: Komga
+    image: gotson/komga
+    mem_limit: 4g
+    cpu_shares: 768
+    security_opt:
+      - no-new-privileges:true
+    user: 1026:100  # Use your own
+    environment:
+     TZ: America/Los_Angeles  # Use your own timezone
+    ports:
+      - 8343:25600
+    volumes:
+      - /volume1/docker/komga/config:/config:rw
+      - /volume1/docker/komga/data:/data:rw
+    restart: on-failure:5
+    networks:
+      - group1
+
+networks:
+  group1:
+    external: true  # Use an existing network
