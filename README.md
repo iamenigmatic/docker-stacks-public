@@ -2,6 +2,9 @@
 ### Stacking up Docker stacks.
 
 > [!IMPORTANT]
+> I am not the creator of any app found here.  Use all apps at your own risk.  Some apps may be vibe coded.  Do your own research on any app and decide the safety for yourself.
+
+> [!IMPORTANT]
 > Almost all of these compose files share the same network.  You can call this network whatever you want, but the network needs to be created before running any of these.  If you are not familiar with doing this, the easiest way to make a new network is by using Dockhand and call it group1 so these just work as is.
 
 > [!IMPORTANT]
