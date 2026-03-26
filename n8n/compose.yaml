@@ -31,7 +31,7 @@ services:
       retries: 3
       start_period: 90s
     hostname: n8n
-    user: 1026:100  # Use your own
+    user: 0:0
     security_opt:
       - no-new-privileges:true
     ports:
