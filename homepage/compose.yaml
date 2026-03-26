@@ -7,7 +7,7 @@ services:
     security_opt:
       - no-new-privileges:true
     environment:
-      HOMEPAGE_ALLOWED_HOSTS: 192.168.0.14:3550  # You can also add your synology.me DDNS or other domain separated by comma like 192.168.1.18:3550,homepage.yourname.synology.me
+      HOMEPAGE_ALLOWED_HOSTS: 192.168.0.14:3550  # Use your own. You can also add your synology.me DDNS or other domain separated by comma like 192.168.1.18:3550,homepage.yourname.synology.me
       PUID: 1026  # Use your own
       PGID: 100  # Use your own
     ports:
