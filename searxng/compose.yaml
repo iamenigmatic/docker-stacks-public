@@ -1,0 +1,29 @@
+services:
+  searxng:
+    image: searxng/searxng
+    container_name: SearXNG
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
+    mem_limit: 8g
+    cpu_shares: 2048
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /volume1/docker/searxng:/etc/searxng:rw
+      - /volume1/docker/searxng/data:/var/cache/searxng:rw
+    ports:
+      - 5147:8080
+    restart: on-failure:5
+    dns:
+      - 192.168.10.2  # Pi-hole or other DNS
+      - 192.168.0.1  # Pi-hole or other DNS
+    networks:
+      - searxng
+
+networks:
+  searxng:
+    name: searxng
