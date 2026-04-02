@@ -13,6 +13,7 @@ services:
       - SQLITE_JOURNAL_MODE=WAL
       - SQLITE_SYNCHRONOUS=FULL
       - MAX_REQUEST_BODY_BYTES=1048576
+      - SCRUMBOY_ENCRYPTION_KEY=${SCRUMBOY_ENCRYPTION_KEY}
     volumes:
       - /volume1/docker/scrumboy/data:/data
     restart: on-failure:5
