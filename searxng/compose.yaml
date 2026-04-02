@@ -22,8 +22,8 @@ services:
       - 192.168.10.2  # Pi-hole or other DNS
       - 192.168.0.1  # Pi-hole or other DNS
     networks:
-      - searxng
+      - group1
 
 networks:
   searxng:
-    name: searxng
+    name: group1
