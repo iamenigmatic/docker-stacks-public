@@ -38,13 +38,13 @@ services:
     volumes:
       - /volume1/docker/mealie/data:/app/data/:rw
     environment:
-      TZ: America/Los_Angeles  # Use your own timezone
-      PUID: 1026  # Use your own
-      PGID: 100  # Use your own
+      TZ: America/Los_Angeles
+      PUID: 1026
+      PGID: 100
       MAX_WORKERS: 1
       WEB_CONCURRENCY: 1
-      ALLOW_SIGNUP: false # true while creating accounts then set to false
-      BASE_URL: http://192.168.0.4 # or https://mealie.yourname.domain.me
+      ALLOW_SIGNUP: false #or false
+      BASE_URL: ${BASE_URL}
       DB_ENGINE: postgres
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -58,6 +58,17 @@ services:
       SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL}
       SMTP_USER: ${SMTP_USER}
       SMTP_PASSWORD: ${SMTP_PASSWORD}
+      OIDC_AUTH_ENABLED: ${OIDC_AUTH_ENABLED}
+      OIDC_SIGNUP_ENABLED: ${OIDC_SIGNUP_ENABLED}
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET}
+      OAUTH_PROVIDER_NAME: ${OAUTH_PROVIDER_NAME}
+      OIDC_CONFIGURATION_URL: ${OIDC_CONFIGURATION_URL}
+      OIDC_USER_CLAIM: ${OIDC_USER_CLAIM}
+      OIDC_USER_GROUP: ${OIDC_USER_GROUP}
+      OIDC_AUTO_REDIRECT: ${OIDC_AUTO_REDIRECT}
+      OIDC_REMEMBER_ME: ${OIDC_REMEMBER_ME}
+      ALLOW_PASSWORD_LOGIN: ${ALLOW_PASSWORD_LOGIN}
     restart: on-failure:5
     depends_on:
       db:
