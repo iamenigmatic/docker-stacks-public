@@ -1,0 +1,23 @@
+services:
+  pocket-id:
+    image: ghcr.io/pocket-id/pocket-id:latest
+    container_name: PocketID
+    restart: on-failure:5
+    env_file: .env
+    ports:
+      - 1411:1411
+    volumes:
+      - /volume1/docker/pocketid/data:/app/data
+    # Optional healthcheck
+    healthcheck:
+      test: [ "CMD", "/app/pocket-id", "healthcheck" ]
+      interval: 1m30s
+      timeout: 5s
+      retries: 2
+      start_period: 10s
+    networks:
+      - group1
+
+networks:
+  group1:
+    external: true  # Use an existing network
