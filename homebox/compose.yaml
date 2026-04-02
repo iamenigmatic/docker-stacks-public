@@ -13,10 +13,18 @@ services:
     environment:
        HBOX_LOG_LEVEL: info
        HBOX_LOG_FORMAT: json  # This defaults as text and throws errors
-       HBOX_WEB_MAX_UPLOAD_SIZE: 5000
-       TZ: America/Los_Angeles  # Use your timezone
-       HBOX_OPTIONS_TRUST_PROXY: true
-       HBOX_OPTIONS_ALLOW_REGISTRATION: false  # Need true for first install then change to false
+       HBOX_WEB_MAX_UPLOAD_SIZE: 15
+       TZ: America/Los_Angeles
+       HBOX_OPTIONS_ALLOW_REGISTRATION: false  # Need true for first install
+       HBOX_OIDC_ENABLED: ${HBOX_OIDC_ENABLED}
+       HBOX_OIDC_ISSUER_URL: ${HBOX_OIDC_ISSUER_URL}
+       HBOX_OIDC_CLIENT_ID: ${HBOX_OIDC_CLIENT_ID}
+       HBOX_OIDC_CLIENT_SECRET: ${HBOX_OIDC_CLIENT_SECRET}
+       HBOX_OPTIONS_TRUST_PROXY: ${HBOX_OPTIONS_TRUST_PROXY}
+       HBOX_OIDC_VERIFY_EMAIL: ${HBOX_OIDC_VERIFY_EMAIL}
+       HBOX_OIDC_AUTO_REDIRECT: ${HBOX_OIDC_AUTO_REDIRECT}
+       HBOX_OPTIONS_ALLOW_LOCAL_LOGIN: ${HBOX_OPTIONS_ALLOW_LOCAL_LOGIN}
+       HBOX_AUTH_RATE_LIMIT_MAX_ATTEMPTS: 2
     restart: on-failure:5
     networks:
       - group1
