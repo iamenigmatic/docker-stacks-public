@@ -1,0 +1,15 @@
+services:
+  theonefile_verse:
+    image: ghcr.io/gelatinescreams/theonefile_verse:latest
+    container_name: TheOneFile_Verse
+    ports:
+      - "10101:10101"
+    volumes:
+      - /volume1/docker/theonefile/data:/app/data
+    restart: on-failure:5
+    networks:
+      - group1
+
+networks:
+  group1:
+    external: true  # Use an existing network
