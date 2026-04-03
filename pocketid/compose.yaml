@@ -8,6 +8,8 @@ services:
       - 1411:1411
     volumes:
       - /volume1/docker/pocketid/data:/app/data
+    read_only: true
+    user: '1000:1000' # OR USE YOUR OWN
     # Optional healthcheck
     healthcheck:
       test: [ "CMD", "/app/pocket-id", "healthcheck" ]
